@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CrossKnowledge - Code challenge</title>
+</head>
+<body>
+  <script>
+    // This will create elements for testing, DO NOT change this code
+    (() => {
+      const MS_PER_MINUTE = 60000
+      const NOW = new Date()
+      let minutes = [0, 1, 30, 60, 6 * 60, 23 * 60, 24 * 60]
+      let dates = []
+
+      minutes.forEach((i) => dates.push(new Date(NOW - i * MS_PER_MINUTE)))
+
+      dates.forEach((item) => {
+        let el = document.createElement("div")
+        el.innerHTML = "Started "
+
+        let dt = document.createElement('span')
+        dt.className = 'js-date-format'
+        dt.innerHTML = item.toISOString()
+        el.appendChild(dt)
+        document.body.appendChild(el)
+      })
+
+    })();
+
+    let brEl = document.createElement("br");
+    document.body.appendChild(brEl);
+
+    function dateFormating (){
+      const MS_PER_MINUTE = 60000;
+      const NOW = new Date();
+      let minutes = [0, 1, 30, 60, 6 * 60, 23 * 60, 24 * 60];
+      let dates = [];
+
+      minutes.forEach((i) => dates.push(new Date(NOW - i * MS_PER_MINUTE)));
+
+      dates.forEach((item) => {
+        let el = document.createElement("div");
+        el.innerHTML = "Started ";
+
+        let dt = document.createElement('span');
+        dt.className = 'js-test-date-format';
+        dt.innerHTML = item.toISOString();
+        el.appendChild(dt);
+        document.body.appendChild(el);
+      });
+
+      var sec = 0;
+      var min = 0;
+      var hr = 0;
+
+      var childs = document.getElementsByClassName('js-test-date-format');
+
+      var intervalID = setInterval(function () {
+        const NOW_Time = new Date();
+
+        dates.forEach((datesItem, index) => {
+          var diff = new Date(NOW_Time - datesItem); 
+          sec = parseInt(diff / 1000);
+          min = parseInt((diff / 1000) / 60);
+          hr = parseInt(min / 60);
+          
+          var toStrng = (index == 6)? ''.toISOString()+'': ''.toString()+'';
+
+          if(hr > 0){
+            childs[index].innerHTML = ( hr + ((hr == 1)? ' hour ago' : ' hours ago' )) + toStrng ;
+          }else if(min > 0){
+            childs[index].innerHTML = ( min + ((min == 1)? ' minute ago' : ' minutes ago' )) + toStrng;
+          }else{
+            childs[index].innerHTML = (sec + ((sec == 1)? ' second ago' : ' seconds ago' )) + toStrng;
+          }
+        });
+
+      }, 1000);
+    }
+
+    dateFormating();
+
+  </script>
+</body>
+</html>
